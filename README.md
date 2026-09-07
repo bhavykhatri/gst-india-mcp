@@ -1,6 +1,8 @@
 # GST India MCP
 
 [![npm version](https://img.shields.io/npm/v/gst-india-mcp)](https://www.npmjs.com/package/gst-india-mcp)
+[![npm downloads](https://img.shields.io/npm/dt/gst-india-mcp?label=npm%20installs)](https://www.npmjs.com/package/gst-india-mcp)
+[![VS Code installs](https://img.shields.io/visual-studio-marketplace/i/bhavykhatri.gst-india-mcp-vscode?label=vs%20code%20installs)](https://marketplace.visualstudio.com/items?itemName=bhavykhatri.gst-india-mcp-vscode)
 [![license](https://img.shields.io/npm/l/gst-india-mcp)](LICENSE)
 [![CI](https://github.com/bhavykhatri/gst-india-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/bhavykhatri/gst-india-mcp/actions/workflows/ci.yml)
 
