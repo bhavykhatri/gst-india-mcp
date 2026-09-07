@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "gst-india": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/index.js"],
+      "env": {
+        "GST_API_KEY": "${env:GST_API_KEY}",
+        "GST_API_SECRET": "${env:GST_API_SECRET}",
+        "GST_BASE_URL": "https://api.sandbox.co.in",
+        "GST_API_VERSION": "1.0",
+        "GST_USERNAME": "${env:GST_USERNAME}",
+        "GST_GSTIN": "${env:GST_GSTIN}"
+      }
+    }
+  }
+}
