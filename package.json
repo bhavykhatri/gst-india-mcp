@@ -1,6 +1,6 @@
 {
   "name": "gst-india-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Model Context Protocol (MCP) server for India GST via the Sandbox (Quicko) API: GSTIN verification, PAN search, return tracking, taxpayer OTP sessions, GSTR-2B/3B, and ledgers.",
   "type": "module",
   "license": "MIT",
