@@ -4,7 +4,7 @@
   "description": "Model Context Protocol (MCP) server for India GST via the Sandbox (Quicko) API: GSTIN verification, PAN search, return tracking, taxpayer OTP sessions, GSTR-2B/3B, and ledgers.",
   "type": "module",
   "license": "MIT",
-  "author": "Bhavy Khatri",
+  "author": "Bhavy Khatri <bhavykhatri@gmail.com>",
   "keywords": [
     "mcp",
     "model-context-protocol",
@@ -12,6 +12,10 @@
     "gstin",
     "india",
     "tax",
+    "tax-compliance",
+    "gstr",
+    "e-invoice",
+    "hsn",
     "sandbox",
     "quicko",
     "ecommerce"
