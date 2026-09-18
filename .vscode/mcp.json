@@ -12,6 +12,14 @@
         "GST_USERNAME": "${env:GST_USERNAME}",
         "GST_GSTIN": "${env:GST_GSTIN}"
       }
+    },
+    "gst-india-mock": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/index.js"],
+      "env": {
+        "GST_MOCK": "true"
+      }
     }
   }
 }
