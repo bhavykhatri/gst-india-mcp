@@ -16,11 +16,15 @@ const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url),
 async function main(): Promise<void> {
   const config = loadConfig();
 
-  const missing = (["apiKey", "apiSecret"] as const).filter((k) => !config[k]);
-  if (missing.length) {
-    console.error(
-      `[warn] Missing Sandbox credentials: ${missing.join(", ")}. Tools will error until GST_API_KEY / GST_API_SECRET are set.`
-    );
+  if (config.mock) {
+    console.error("[info] GST_MOCK enabled — serving deterministic mock data (no credentials/network).");
+  } else {
+    const missing = (["apiKey", "apiSecret"] as const).filter((k) => !config[k]);
+    if (missing.length) {
+      console.error(
+        `[warn] Missing Sandbox credentials: ${missing.join(", ")}. Tools will error until GST_API_KEY / GST_API_SECRET are set (or set GST_MOCK=true).`
+      );
+    }
   }
 
   const client = new GstClient(config);

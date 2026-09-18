@@ -27,8 +27,8 @@ export function registerSessionTools(
     },
     async ({ username, gstin }) => {
       try {
-        const u = username || config.username;
-        const g = gstin || config.gstin;
+        const u = username || config.username || (config.mock ? "mock-user" : "");
+        const g = gstin || config.gstin || (config.mock ? "MOCKGSTIN0001Z" : "");
         if (!u || !g) {
           return errorResult(
             new Error("username and gstin are required (set GST_USERNAME / GST_GSTIN or pass them).")
@@ -55,8 +55,8 @@ export function registerSessionTools(
     },
     async ({ otp, username, gstin }) => {
       try {
-        const u = username || config.username;
-        const g = gstin || config.gstin;
+        const u = username || config.username || (config.mock ? "mock-user" : "");
+        const g = gstin || config.gstin || (config.mock ? "MOCKGSTIN0001Z" : "");
         if (!u || !g) {
           return errorResult(
             new Error("username and gstin are required (set GST_USERNAME / GST_GSTIN or pass them).")

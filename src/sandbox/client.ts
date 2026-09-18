@@ -5,6 +5,7 @@
 //   - Taxpayer *data* calls send the 6h taxpayer token (from OTP verify) in `authorization`.
 // The taxpayer token is NOT a Bearer token — it is passed raw in `authorization`.
 import type { GstConfig } from "../config.js";
+import * as mock from "./mock.js";
 
 interface TokenCache {
   token: string;
@@ -135,6 +136,7 @@ export class GstClient {
 
   // --- Public APIs (no OTP; use the sandbox token) ---
   verifyGstin(gstin: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.verifyGstin(gstin));
     return this.call("POST", "/gst/compliance/public/gstin/search", {
       body: { gstin },
       auth: "sandbox",
@@ -142,6 +144,7 @@ export class GstClient {
   }
 
   searchGstinByPan(pan: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.searchGstinByPan(pan));
     return this.call("POST", "/gst/compliance/public/pan/search", {
       body: { pan },
       auth: "sandbox",
@@ -149,6 +152,7 @@ export class GstClient {
   }
 
   trackReturnsPublic(gstin: string, financialYear?: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.trackReturns(gstin, financialYear));
     const body: Record<string, string> = { gstin };
     if (financialYear) body.financial_year = financialYear;
     return this.call("POST", "/gst/compliance/public/gstrs/track", { body, auth: "sandbox" });
@@ -156,6 +160,7 @@ export class GstClient {
 
   // --- Taxpayer session (OTP) ---
   generateOtp(username: string, gstin: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.generateOtp());
     return this.call("POST", "/gst/compliance/tax-payer/otp", {
       body: { username, gstin },
       auth: "sandbox",
@@ -163,6 +168,10 @@ export class GstClient {
   }
 
   async verifyOtp(otp: string, username: string, gstin: string): Promise<unknown> {
+    if (this.config.mock) {
+      this.setTaxpayerToken("MOCK-TAXPAYER-TOKEN");
+      return mock.verifyOtp();
+    }
     const res = (await this.call("POST", "/gst/compliance/tax-payer/otp/verify", {
       query: { otp },
       body: { username, gstin },
@@ -175,6 +184,7 @@ export class GstClient {
 
   // --- Taxpayer data (require a session) ---
   taxpayerTrackReturns(year: string, month: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.trackReturnsCurrent(year, month));
     return this.call(
       "GET",
       `/gst/compliance/tax-payer/gstrs/${encodeURIComponent(year)}/${encodeURIComponent(month)}/track`,
@@ -183,10 +193,12 @@ export class GstClient {
   }
 
   getAato(): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.aato());
     return this.call("GET", "/gst/compliance/tax-payer/aato", { auth: "taxpayer" });
   }
 
   getGstr3b(year: string, month: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.gstr3b(year, month));
     return this.call(
       "GET",
       `/gst/compliance/tax-payer/gstrs/gstr-3b/${encodeURIComponent(year)}/${encodeURIComponent(month)}`,
@@ -195,6 +207,7 @@ export class GstClient {
   }
 
   getGstr2b(year: string, month: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.gstr2b(year, month));
     return this.call(
       "GET",
       `/gst/compliance/tax-payer/gstrs/gstr-2b/${encodeURIComponent(year)}/${encodeURIComponent(month)}`,
@@ -203,6 +216,7 @@ export class GstClient {
   }
 
   getLedgerBalance(year: string, month: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.ledgerBalance(year, month));
     return this.call(
       "GET",
       `/gst/compliance/tax-payer/ledgers/bal/${encodeURIComponent(year)}/${encodeURIComponent(month)}`,
@@ -211,6 +225,7 @@ export class GstClient {
   }
 
   getCashLedger(from: string, to: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.cashLedger(from, to));
     return this.call("GET", "/gst/compliance/tax-payer/ledgers/cash", {
       query: { from, to },
       auth: "taxpayer",
@@ -218,6 +233,7 @@ export class GstClient {
   }
 
   getItcLedger(from: string, to: string): Promise<unknown> {
+    if (this.config.mock) return Promise.resolve(mock.itcLedger(from, to));
     return this.call("GET", "/gst/compliance/tax-payer/ledgers/itc", {
       query: { from, to },
       auth: "taxpayer",

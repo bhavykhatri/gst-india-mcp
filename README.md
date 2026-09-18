@@ -65,6 +65,18 @@ Set via `.env` (local dev) or the MCP host's `env` block:
 
 Never commit `.env` — it is git-ignored.
 
+## Demo / mock mode (no credentials)
+
+Set **`GST_MOCK=true`** to serve deterministic mock data for every tool — no Sandbox account, no network, no real taxpayer data. Ideal for demos, videos, and trying the tools instantly:
+
+```bash
+GST_MOCK=true npx gst-india-mcp
+```
+
+Mock GSTINs to try (e.g. with `verify_gstin`): `27AABCT1234F1ZP` (active), `33AABCC1122P1ZW` (suspended). `search_gstin_by_pan` with `AABCT1234F` returns two branch GSTINs. The taxpayer tools accept any OTP and return sample GSTR-2B/3B and ledger data.
+
+> Mock data is adapted from the open-source [vnrtumu/mockGSTServer](https://github.com/vnrtumu/mockGSTServer) vendor dataset.
+
 ## Use with VS Code
 
 Ships a [`.vscode/mcp.json`](.vscode/mcp.json). Open the folder in VS Code and start the server from the MCP view, or install the [VS Code extension](vscode-extension/).

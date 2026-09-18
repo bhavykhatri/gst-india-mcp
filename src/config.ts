@@ -11,6 +11,7 @@ export interface GstConfig {
   username: string;
   gstin: string;
   taxpayerToken: string;
+  mock: boolean;
 }
 
 function loadDotEnv(): void {
@@ -40,5 +41,6 @@ export function loadConfig(): GstConfig {
     username: process.env.GST_USERNAME ?? "",
     gstin: process.env.GST_GSTIN ?? "",
     taxpayerToken: process.env.GST_TAXPAYER_TOKEN ?? "",
+    mock: /^(1|true|yes)$/i.test(process.env.GST_MOCK ?? ""),
   };
 }
